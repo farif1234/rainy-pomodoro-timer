@@ -13,7 +13,7 @@ const RainDrop = ({ index }) => {
             }}
             animate={{ top: "100vh" }} // Animate raindrop to fall to the bottom of the screen
             transition={{
-                duration: 0.6,
+                duration: 0.65,
                 ease: "linear",
                 repeat: Infinity,
                 delay: Math.random(),
