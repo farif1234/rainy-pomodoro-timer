@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const RainDrop = ({ index }) => {
     return (
@@ -16,8 +16,9 @@ const RainDrop = ({ index }) => {
                 duration: 0.65,
                 ease: "linear",
                 repeat: Infinity,
-                delay: Math.random(),
-            }} // Add randomness to duration for staggered effect
+                delay: Math.random() + 2,
+            }}
+            exit={{ top: "100vh" }}
         ></motion.div>
     );
 };

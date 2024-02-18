@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { TIMES } from "../constants";
 
 const WORK_TIME = 1500;
 const SHORT_BREAK_TIME = 300;
@@ -11,7 +12,14 @@ function displaySeconds(time) {
     return `${minutes.slice(-2)}:${seconds.slice(-2)}`;
 }
 
-const Timer = ({ time, setTime, timerStart, setTimerStart }) => {
+const Timer = ({
+    time,
+    setTime,
+    timerStart,
+    setTimerStart,
+    phase,
+    setPhase,
+}) => {
     const numDots = 60;
     const angleIncrement = 360 / numDots;
 
@@ -25,7 +33,11 @@ const Timer = ({ time, setTime, timerStart, setTimerStart }) => {
                     setActiveIdx((activeIdx + 1) % numDots);
                 } else if (time === 0) {
                     // TODO: Send notification to user.
+                    setTimerStart(false);
+                    setTime(TIMES[(phase + 1) % TIMES.length]);
+                    setPhase(phase + 1);
                     clearInterval(interval);
+                    setActiveIdx(-1);
                 }
             }
         }, 1000);
@@ -33,7 +45,7 @@ const Timer = ({ time, setTime, timerStart, setTimerStart }) => {
     }, [timerStart, time]);
 
     return (
-        <div className="h-56 w-56 relative my-3">
+        <div className="h-48 w-56 relative  ">
             <div className="flex justify-center items-center h-full w-full">
                 {Array.from({ length: numDots }).map((_, index) => (
                     <div
@@ -42,28 +54,38 @@ const Timer = ({ time, setTime, timerStart, setTimerStart }) => {
                         style={{
                             transform: `rotate(${
                                 angleIncrement * index
-                            }deg) translate(60px)`,
+                            }deg) translate(0px, -56px)`,
                         }}
                     >
                         <div
-                            className={`w-1 h-1 rounded-full duration-200 ${
-                                index == activeIdx
-                                    ? "bg-gray-100 scale-150 shadow-2xl shadow-white"
-                                    : "bg-gray-600"
+                            className={`w-2 h-1 rounded-full duration-1000  ${
+                                index <= activeIdx
+                                    ? "bg-gray-100 scale-0"
+                                    : "bg-gray-100 scale-100"
                             }`}
                         ></div>
                     </div>
                 ))}
-                <motion.circle
-                    cx={20} // Adjust the center x-coordinate as needed
-                    r={1} // Set the radius of the additional circle
-                    fill="blue" // Customize the color
-                    animate={{ cx: [null, 100] }} // Smoothly transition the x-coordinate
-                />
-                <div className="absolute text-white text-6xl font-bold">
+
+                <div className="absolute text-gray-100 text-6xl font-bold flex items-center justify-center ">
                     {Math.floor(time / 60)}
+                    <span className="text-sm text-gray-400 ml-1">min</span>
                     {/* {displaySeconds(time)} */}
                 </div>
+
+                {/* {time % 60 == 59 && activeIdx >= 0 && (
+                    <motion.div
+                        initial={{ opacity: 0.3, scale: 1 }}
+                        animate={{ opacity: 0, scale: 1.4 }}
+                        transition={{
+                            duration: 1,
+                            type: "tween",
+                            ease: "easeIn",
+                            delay: 0,
+                        }}
+                        className="absolute w-32 h-32 rounded-full border-4 border-gray-100"
+                    ></motion.div>
+                )} */}
             </div>
         </div>
     );
