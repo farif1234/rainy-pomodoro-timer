@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { TIMES } from "../constants";
+import bellSound from "../assets/fairybell.wav";
 
 const WORK_TIME = 1500;
 const SHORT_BREAK_TIME = 300;
@@ -25,6 +26,12 @@ const Timer = ({
 
     const [activeIdx, setActiveIdx] = useState(-1);
 
+    const getPhaseTimerColor = (p) => {
+        if (p % 2 == 0) return "bg-sky-300 ";
+        if (p % 7 == 0) return "bg-fuchsia-300";
+        return "bg-yellow-300";
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (timerStart) {
@@ -32,12 +39,16 @@ const Timer = ({
                     setTime(time - 1);
                     setActiveIdx((activeIdx + 1) % numDots);
                 } else if (time === 0) {
-                    // TODO: Send notification to user.
+                    // Timer done
                     setTimerStart(false);
                     setTime(TIMES[(phase + 1) % TIMES.length]);
                     setPhase(phase + 1);
                     clearInterval(interval);
                     setActiveIdx(-1);
+
+                    const audio = new Audio(bellSound);
+
+                    audio.play();
                 }
             }
         }, 1000);
@@ -50,7 +61,7 @@ const Timer = ({
                 {Array.from({ length: numDots }).map((_, index) => (
                     <div
                         key={index}
-                        className="absolute"
+                        className="absolute "
                         style={{
                             transform: `rotate(${
                                 angleIncrement * index
@@ -58,34 +69,24 @@ const Timer = ({
                         }}
                     >
                         <div
-                            className={`w-2 h-1 rounded-full duration-1000  ${
-                                index <= activeIdx
-                                    ? "bg-gray-100 scale-0"
-                                    : "bg-gray-100 scale-100"
+                            className={`w-2 h-1 rounded-full duration-1000 ${getPhaseTimerColor(
+                                phase
+                            )}   ${
+                                index <= activeIdx ? "scale-0" : "scale-100"
                             }`}
+                        ></div>
+                        <div
+                            className={`w-2 h-1 rounded-full duration-1000 blur-md ${getPhaseTimerColor(
+                                phase
+                            )} ${index <= activeIdx ? "scale-0" : "scale-100"}`}
                         ></div>
                     </div>
                 ))}
 
-                <div className="absolute text-gray-100 text-6xl font-bold flex items-center justify-center ">
+                <div className="absolute text-gray-100 text-6xl font-bold flex items-center justify-center  ">
                     {Math.floor(time / 60)}
-                    <span className="text-sm text-gray-400 ml-1">min</span>
-                    {/* {displaySeconds(time)} */}
+                    <span className="text-sm text-gray-100 ml-1">min</span>
                 </div>
-
-                {/* {time % 60 == 59 && activeIdx >= 0 && (
-                    <motion.div
-                        initial={{ opacity: 0.3, scale: 1 }}
-                        animate={{ opacity: 0, scale: 1.4 }}
-                        transition={{
-                            duration: 1,
-                            type: "tween",
-                            ease: "easeIn",
-                            delay: 0,
-                        }}
-                        className="absolute w-32 h-32 rounded-full border-4 border-gray-100"
-                    ></motion.div>
-                )} */}
             </div>
         </div>
     );
