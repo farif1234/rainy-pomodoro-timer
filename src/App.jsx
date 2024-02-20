@@ -6,6 +6,7 @@ import { TIMES, AUDIO_URL } from "./constants";
 import rainSound from "./assets/rainSound.mp3";
 import About from "./components/About";
 import AudioControls from "./components/AudioControls";
+import { Analytics } from "@vercel/analytics/react";
 
 const audioElement = new Audio(rainSound);
 audioElement.loop = true;
@@ -73,6 +74,7 @@ function App() {
                     : "bg-orange-700"
             }`}
         >
+            <Analytics />
             {phase % 2 == 0 &&
                 [...Array(100)].map((_, index) => <RainDrop index={index} />)}
 
