@@ -53,12 +53,6 @@ function App() {
         return "short break";
     }
 
-    // function getHoverColor(p) {
-    //     if (p % 2 == 0) return "bg-gray-900";
-    //     if ((p + 1) % 8 == 0) return "bg-orange-900";
-    //     return "bg-blue-950";
-    // }
-
     var hoverColor = getHoverColor(phase);
 
     const toggleTimer = () => {
@@ -129,14 +123,7 @@ function App() {
                             repeat: Infinity,
                         },
                     }}
-                    className={`text-gray-200 text-2xl border border-gray-300 hover:${
-                        // phase % 2 == 0
-                        //     ? "bg-gray-900"
-                        //     : (phase + 1) % 8 == 0
-                        //     ? "bg-orange-950"
-                        //     : "bg-blue-900"
-                        hoverColor
-                    }  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3`}
+                    className={`text-gray-200 text-2xl border border-gray-300 hover:${hoverColor}  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3`}
                 >
                     {time == TIMES[phase % TIMES.length]
                         ? "start"
