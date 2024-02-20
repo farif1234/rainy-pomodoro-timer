@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 import { TIMES } from "../constants";
 import bellSound from "../assets/fairybell.wav";
 
-const WORK_TIME = 1500;
-const SHORT_BREAK_TIME = 300;
-
 function displaySeconds(time) {
     var seconds = `0${time % 60}`;
     var minutes = `0${Math.floor(time / 60)}`;
@@ -28,7 +25,7 @@ const Timer = ({
 
     const getPhaseTimerColor = (p) => {
         if (p % 2 == 0) return "bg-sky-300 ";
-        if (p % 7 == 0) return "bg-fuchsia-300";
+        if (p % 7 == 0) return "bg-orange-200";
         return "bg-yellow-300";
     };
 
@@ -47,6 +44,7 @@ const Timer = ({
                     setActiveIdx(-1);
 
                     const audio = new Audio(bellSound);
+                    audio.volume = 0.3;
 
                     audio.play();
                 }
@@ -56,7 +54,7 @@ const Timer = ({
     }, [timerStart, time]);
 
     return (
-        <div className="h-48 w-56 relative  ">
+        <div className="h-48 w-56 relative backdrop-blur-sm">
             <div className="flex justify-center items-center h-full w-full">
                 {Array.from({ length: numDots }).map((_, index) => (
                     <div

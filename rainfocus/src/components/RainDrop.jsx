@@ -16,7 +16,7 @@ const RainDrop = ({ index }) => {
                 duration: 0.65,
                 ease: "linear",
                 repeat: Infinity,
-                delay: Math.random() + 2,
+                delay: Math.random() + 1.5,
             }}
             exit={{ top: "100vh" }}
         ></motion.div>
