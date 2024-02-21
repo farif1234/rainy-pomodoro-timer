@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RainDrop from "./components/RainDrop";
 import Timer from "./components/Timer";
-import { TIMES, AUDIO_URL } from "./constants";
+import { TIMES } from "./constants";
 import rainSound from "./assets/rainSound.mp3";
 import About from "./components/About";
 import AudioControls from "./components/AudioControls";
@@ -13,9 +13,9 @@ audioElement.loop = true;
 audioElement.volume = 0.15;
 
 function getHoverColor(p) {
-    if (p % 2 == 0) return "bg-gray-900";
-    if ((p + 1) % 8 == 0) return "bg-orange-800";
-    return "bg-blue-900";
+    if (p % 2 == 0) return "hover:bg-gray-900";
+    if ((p + 1) % 8 == 0) return "hover:bg-orange-600";
+    return "hover:bg-sky-800";
 }
 
 function App() {
@@ -54,7 +54,7 @@ function App() {
         return "short break";
     }
 
-    var hoverColor = getHoverColor(phase);
+    const hoverColor = getHoverColor(phase);
 
     const toggleTimer = () => {
         setTimerStart(!timerStart);
@@ -70,7 +70,7 @@ function App() {
                 getPhase(phase) == "focus"
                     ? "bg-gray-950"
                     : getPhase(phase) == "short break"
-                    ? "bg-blue-800"
+                    ? "bg-sky-900"
                     : "bg-orange-700"
             }`}
         >
@@ -88,7 +88,7 @@ function App() {
                     nimbus
                 </h1>
                 <h3 className="text-lg text-gray-200">pomodoro timer</h3>
-                <div className="mt-8 mx-2 flex items-center">
+                <div className="mt-8 mb-2 mx-2 flex items-center">
                     {phases.map((phase_, idx) => (
                         <div className="flex items-center" key={idx}>
                             <h2
@@ -125,7 +125,7 @@ function App() {
                             repeat: Infinity,
                         },
                     }}
-                    className={`text-gray-200 text-2xl border border-gray-300 hover:${hoverColor}  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3`}
+                    className={`text-gray-200 text-2xl border border-gray-300 ${hoverColor}  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3`}
                 >
                     {time == TIMES[phase % TIMES.length]
                         ? "start"
@@ -143,7 +143,7 @@ function App() {
                 <motion.button
                     onClick={toggleAbout}
                     type="button"
-                    className={`text-gray-200 text-lg border border-gray-300 hover:${hoverColor} rounded-full px-4 py-2 mt-5 duration-150 w-1/3`}
+                    className={`text-gray-200 text-lg border border-gray-300 ${hoverColor} rounded-full px-4 py-2 mt-5 duration-150 w-1/3`}
                 >
                     about
                 </motion.button>

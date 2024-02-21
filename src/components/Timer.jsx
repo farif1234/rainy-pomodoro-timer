@@ -54,7 +54,7 @@ const Timer = ({
     }, [timerStart, time]);
 
     return (
-        <div className="h-48 w-56 relative backdrop-blur-sm">
+        <div className="h-48 w-56 relative ">
             <div className="flex justify-center items-center h-full w-full">
                 {Array.from({ length: numDots }).map((_, index) => (
                     <div
@@ -67,7 +67,7 @@ const Timer = ({
                         }}
                     >
                         <div
-                            className={`w-2 h-1 rounded-full duration-1000 ${getPhaseTimerColor(
+                            className={`w-2 h-1 rounded-full duration-1000  ${getPhaseTimerColor(
                                 phase
                             )}   ${
                                 index <= activeIdx ? "scale-0" : "scale-100"
