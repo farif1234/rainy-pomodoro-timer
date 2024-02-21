@@ -125,12 +125,12 @@ function App() {
                             repeat: Infinity,
                         },
                     }}
-                    className={`text-gray-200 text-2xl border border-gray-300 ${hoverColor}  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3`}
+                    className={`text-gray-200 text-2xl border border-gray-300 ${hoverColor}  font-bold rounded-full px-7 py-2.5 mb-2 mt-5 duration-150 w-1/3 backdrop-blur-md`}
                 >
-                    {time == TIMES[phase % TIMES.length]
-                        ? "start"
-                        : timerStart
+                    {timerStart
                         ? "pause"
+                        : time == TIMES[phase % TIMES.length]
+                        ? "start"
                         : "resume"}
                 </motion.button>
                 <AudioControls

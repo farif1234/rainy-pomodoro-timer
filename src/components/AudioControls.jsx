@@ -26,7 +26,7 @@ const AudioControls = ({
                         duration: 1,
                     },
                 }}
-                className={`text-gray-200 text-md border border-gray-300 ${hoverColor}  font-bold rounded-full p-3 mx-3 duration-150 w-1/3`}
+                className={`text-gray-200 text-md border border-gray-300 ${hoverColor}  font-bold rounded-full p-3 mx-3 duration-150 w-1/3 backdrop-blur-md`}
             >
                 rain sound {isPlaying ? "off" : "on"}
             </motion.button>
