@@ -1,8 +1,9 @@
-# React + Vite
+# Nimbus
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nimbus, a rain storm to help you brain storm. This pomodoro timer has a rainy day aesthetic to help you accomplish your tasks. It includes automatic session switching and a soothing rain sounds. 
 
-Currently, two official plugins are available:
+Built with React, Tailwind, Framer Motion (for timer animations).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Check it out https://rainy-pomodoro-timer.vercel.app/
+
+![Screenshot 2024-05-15 232552](https://github.com/farif1234/rainy-pomodoro-timer/assets/88285952/756d54dd-e1cc-4f0f-a3ed-3c249a3509ed)
